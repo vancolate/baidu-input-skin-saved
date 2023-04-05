@@ -1,0 +1,74 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.baidu.com"
+           xmlns="http://www.baidu.com"
+           elementFormDefault="qualified">
+  <xs:simpleType name="BiDataType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="string"/>
+      <xs:enumeration value="color"/>
+      <xs:enumeration value="int"/>
+      <xs:enumeration value="enum"/>
+      <xs:enumeration value="point"/>
+      <xs:enumeration value="rect"/>
+      <xs:enumeration value="scale"/>
+      <xs:enumeration value="external"/>
+      <xs:enumeration value="style"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BiFileExtension">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value=".ini"/>
+      <xs:enumeration value=".cnd"/>
+      <xs:enumeration value=".pop"/>
+      <xs:enumeration value=".css"/>
+      <xs:enumeration value=".til"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="BiBool">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true"/>
+      <xs:enumeration value="false"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="BiAttr">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name ="data_type" type ="BiDataType"/>
+      <xs:element name ="description" type ="BiDescType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BiCategory">
+    <xs:sequence>
+      <xs:element name="attr" type="BiAttr" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="repeat" type="BiBool" default="false"/>
+  </xs:complexType>
+
+  <xs:complexType name="BiFile">
+    <xs:sequence>
+      <xs:element name="category" type="BiCategory" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="ext" type="BiFileExtension" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="BiDescType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]+:.+)|([0-9]+-[0-9]+)|(\..+)"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+    
+  <xs:element name="files">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="file" type ="BiFile" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

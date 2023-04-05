@@ -1,0 +1,4 @@
+﻿Name=自定义双拼
+Style=Default
+SupportPlatform=SWIA
+Author=HHH

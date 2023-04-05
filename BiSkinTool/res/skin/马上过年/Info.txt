@@ -1,0 +1,3 @@
+﻿Name=马上过年
+Style=default
+SupportPlatform=SWIA
